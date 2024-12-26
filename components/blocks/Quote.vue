@@ -7,13 +7,18 @@ defineProps<{
 </script>
 
 <template>
-  <div>
+  <div class="quote-wrapper">
     <blockquote>"{{ data.quote }}"</blockquote>
     <p class="quote-author">{{ data.author }}</p>
   </div>
 </template>
 
 <style scoped>
+.quote-wrapper {
+  border: 1px solid #aaa;
+  background: #eee;
+  padding: 1rem;
+}
 blockquote {
   font-style: italic;
 }
