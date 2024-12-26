@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type {Block} from "~/types/Block";
+import type { Block } from "~/types/Block";
 
 defineProps<{
-  data: Block
+  data: Block;
 }>();
 </script>
 
@@ -12,6 +12,4 @@ defineProps<{
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

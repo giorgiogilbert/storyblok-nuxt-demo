@@ -1,9 +1,9 @@
 <script setup lang="ts">
-  import type {Paragraph} from "~/types/Paragraph";
+import type { Paragraph } from "~/types/Paragraph";
 
-  defineProps<{
-    data: Paragraph
-  }>();
+defineProps<{
+  data: Paragraph;
+}>();
 </script>
 
 <template>
@@ -12,6 +12,4 @@
   </p>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

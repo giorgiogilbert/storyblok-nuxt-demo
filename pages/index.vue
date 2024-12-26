@@ -1,13 +1,9 @@
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div>
-    <NuxtPage />
+    <NuxtLink to="/first-page">First page</NuxtLink>
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

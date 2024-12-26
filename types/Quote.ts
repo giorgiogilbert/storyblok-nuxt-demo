@@ -1,5 +1,5 @@
-import type {Block} from "./Block";
+import type { Block } from "./Block";
 export type Quote = Block & {
-    quote: string;
-    author: string;
-}
+  quote: string;
+  author: string;
+};
