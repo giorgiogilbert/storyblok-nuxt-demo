@@ -6,9 +6,6 @@ export type Story = {
       content: Block[];
     };
     component: string;
-    id: string;
-    name: string;
-    uid: string;
   };
 };
 export type StoryData = {
