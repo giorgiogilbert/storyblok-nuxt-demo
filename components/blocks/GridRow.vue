@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {GridRow} from "~/types/GridRow";
+import type { GridRow } from "~/types/GridRow";
 import GridColumn from "~/components/blocks/GridColumn.vue";
 import useEditableBlock from "~/composables/useEditableBlock";
 
@@ -12,7 +12,7 @@ const columns = computed(() => props.data.columns || []);
 
 <template>
   <div class="row">
-    <GridColumn v-for="column in columns" :key="column._uid" :data="column"/>
+    <GridColumn v-for="column in columns" :key="column._uid" :data="column" />
   </div>
 </template>
 

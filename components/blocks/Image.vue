@@ -9,11 +9,7 @@ useEditableBlock(props.data);
 
 <template>
   <div>
-    <img
-      :src="data.image.filename"
-      :alt="data.image.alt"
-      :title="data.image.title"
-    />
+    <img :src="data.image.filename" :alt="data.image.alt" :title="data.image.title" />
     <p v-if="data.image.copyright">{{ data.image.copyright }}</p>
   </div>
 </template>

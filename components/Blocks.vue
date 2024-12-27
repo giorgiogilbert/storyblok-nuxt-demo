@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {Block} from "~/types/Block";
+import type { Block } from "~/types/Block";
 import Image from "~/components/blocks/Image.vue";
 import Paragraph from "~/components/blocks/Paragraph.vue";
 import Quote from "~/components/blocks/Quote.vue";
@@ -7,8 +7,8 @@ import GridRow from "~/components/blocks/GridRow.vue";
 import NotImplementedFallback from "~/components/blocks/NotImplementedFallback.vue";
 
 defineProps<{
-  blocks: Block[]
-}>()
+  blocks: Block[];
+}>();
 
 const getVueComponent = (component: string) => {
   switch (component) {
@@ -24,20 +24,18 @@ const getVueComponent = (component: string) => {
       return NotImplementedFallback;
   }
 };
-
 </script>
 
 <template>
   <component
-      v-for="block in blocks"
-      :key="block._uid"
-      :is="getVueComponent(block.component)"
-      :data="block"
-      class="storyblok-block"
-      :id = "`storyblock-block-${block._uid}`"
+    v-for="block in blocks"
+    :key="block._uid"
+    :is="getVueComponent(block.component)"
+    :data="block"
+    class="storyblok-block"
+    :id="`storyblock-block-${block._uid}`"
   />
 </template>
-
 
 <style scoped>
 .storyblok-block {

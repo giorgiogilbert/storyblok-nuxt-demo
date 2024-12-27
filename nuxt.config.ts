@@ -3,9 +3,11 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       storyblok: {
-        accessToken: process.env.STORYBLOK_DELIVERY_ACCESS_TOKEN,
-      },
-    },
+        accessToken: process.env.STORYBLOK_DELIVERY_ACCESS_TOKEN
+      }
+    }
   },
+
   devtools: { enabled: true },
+  modules: ["@nuxt/eslint"]
 });

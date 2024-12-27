@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {GridColumn} from "~/types/GridColumn";
+import type { GridColumn } from "~/types/GridColumn";
 import Blocks from "~/components/Blocks.vue";
 import useEditableBlock from "~/composables/useEditableBlock";
 
@@ -11,5 +11,5 @@ const blocks = computed(() => props.data.content || []);
 </script>
 
 <template>
-  <Blocks class="column" :blocks="blocks"/>
+  <Blocks class="column" :blocks="blocks" />
 </template>

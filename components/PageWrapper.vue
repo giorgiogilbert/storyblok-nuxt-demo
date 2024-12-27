@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type {StoryData} from "~/types/Story";
+import type { StoryData } from "~/types/Story";
 import Blocks from "~/components/Blocks.vue";
 const props = defineProps<{
-  story: StoryData
+  story: StoryData;
 }>();
 const blocks = computed(() => {
   if (props.story.data.value) {
@@ -18,12 +18,10 @@ const blocks = computed(() => {
     <div v-else>
       <div v-if="story.error.value">Error: {{ story.error.value }}</div>
       <div v-else>
-        <Blocks :blocks="blocks"/>
+        <Blocks :blocks="blocks" />
       </div>
     </div>
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
