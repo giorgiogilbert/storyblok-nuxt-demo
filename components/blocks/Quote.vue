@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import type { Quote } from "~/types/Quote";
+import useEditableBlock from "~/composables/useEditableBlock";
 
-defineProps<{
+const props = defineProps<{
   data: Quote;
 }>();
+useEditableBlock(props.data);
 </script>
 
 <template>

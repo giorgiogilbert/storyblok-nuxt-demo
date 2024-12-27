@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type {Block} from "~/types/Block";
 const {slug} = useRoute().params;
 const getPageBySlug = async (slug: string) => {
   const apiBase = "https://api.storyblok.com/v2/cdn";
@@ -22,17 +23,45 @@ const getPageBySlug = async (slug: string) => {
   );
   return await response.json();
 };
-const {data, error, pending} = useAsyncData(async () => {
+const {data, error, pending} = await useAsyncData(async () => {
   return await getPageBySlug(slug as string);
 });
 
 const blocks = computed(() => {
   if (data.value) {
+    console.log('data is', data.value)
     return data.value.story.content.content;
   }
   return [];
 });
 
+useHead({
+  script: [
+    {
+      src: 'https://app.storyblok.com/f/storyblok-v2-latest.js'
+    }
+  ],
+})
+type InputEventPayload = {
+  story: {
+    content: {
+      content: Block[]
+    }
+  }
+}
+const refresh = (payload: InputEventPayload) => {
+  data.value = payload;
+}
+onMounted(() => {
+  const { StoryblokBridge, location } = window
+  const storyblokInstance = new StoryblokBridge();
+  storyblokInstance.on(['published', 'change'], () => {
+    location.reload()
+  })
+  storyblokInstance.on('input', (payload: InputEventPayload) => {
+    refresh(payload)
+  })
+})
 </script>
 
 <template>

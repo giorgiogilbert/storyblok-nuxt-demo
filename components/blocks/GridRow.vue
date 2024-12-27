@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import type {GridRow} from "~/types/GridRow";
 import GridColumn from "~/components/blocks/GridColumn.vue";
+import useEditableBlock from "~/composables/useEditableBlock";
 
 const props = defineProps<{
   data: GridRow;
 }>();
+useEditableBlock(props.data);
 const columns = computed(() => props.data.columns || []);
 </script>
 

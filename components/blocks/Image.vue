@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import type { Image } from "~/types/Image";
-defineProps<{
+import useEditableBlock from "~/composables/useEditableBlock";
+const props = defineProps<{
   data: Image;
 }>();
+useEditableBlock(props.data);
 </script>
 
 <template>

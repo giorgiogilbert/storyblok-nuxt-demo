@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import type { Paragraph } from "~/types/Paragraph";
+import useEditableBlock from "~/composables/useEditableBlock";
 
-defineProps<{
+const props = defineProps<{
   data: Paragraph;
 }>();
+useEditableBlock(props.data);
 </script>
 
 <template>

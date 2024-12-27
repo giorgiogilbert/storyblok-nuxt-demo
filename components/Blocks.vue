@@ -34,6 +34,7 @@ const getVueComponent = (component: string) => {
       :is="getVueComponent(block.component)"
       :data="block"
       class="storyblok-block"
+      :id = "`storyblock-block-${block._uid}`"
   />
 </template>
 
