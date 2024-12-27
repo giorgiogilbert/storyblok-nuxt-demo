@@ -1,0 +1,44 @@
+name: CI pipeline
+
+on:
+  push:
+    branches:
+      - "*"
+  pull_request:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    permissions: write-all
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Prettify code
+        uses: creyD/prettier_action@v4.3
+        with:
+          prettier_version: 3.2.5
+          dry: true
+          prettier_options: "--check **/*.{js,md,ts,vue,scss}"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 23.1.0
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run ESLint
+        uses: sibiraj-s/action-eslint@v3
+        with:
+          extensions: "js,jsx,ts,tsx,vue"
+          ignore-patterns: |
+            node_modules/
+            cypress/
+
+      - name: Compile TypeScript
+        run: npm run tsc
