@@ -1,39 +1,13 @@
 <script setup lang="ts">
 import type {Block} from "~/types/Block";
-const {slug} = useRoute().params;
-const getPageBySlug = async (slug: string) => {
-  const apiBase = "https://api.storyblok.com/v2/cdn";
-  const accessToken = useRuntimeConfig().public.storyblok.accessToken;
-  const response = await fetch(
-      apiBase +
-      "/stories/" +
-      slug +
-      "?token=" +
-      accessToken +
-      "&version=draft" +
-      "&cv=" +
-      Date.now(),
-      {
-        method: "GET",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-  );
-  return await response.json();
-};
-const {data, error, pending} = await useAsyncData(async () => {
-  return await getPageBySlug(slug as string);
-});
+import {apiClient} from "~/src/apiClient";
+import PageWrapper from "~/components/PageWrapper.vue";
 
-const blocks = computed(() => {
-  if (data.value) {
-    console.log('data is', data.value)
-    return data.value.story.content.content;
-  }
-  return [];
+const {slug} = useRoute().params;
+const {data, error, pending} = await useAsyncData(async () => {
+  return await apiClient().getPageBySlug(slug as string, true);
 });
+const story = {data, error, pending}
 
 useHead({
   script: [
@@ -53,7 +27,7 @@ const refresh = (payload: InputEventPayload) => {
   data.value = payload;
 }
 onMounted(() => {
-  const { StoryblokBridge, location } = window
+  const {StoryblokBridge, location} = window
   const storyblokInstance = new StoryblokBridge();
   storyblokInstance.on(['published', 'change'], () => {
     location.reload()
@@ -62,18 +36,21 @@ onMounted(() => {
     refresh(payload)
   })
 })
+const storyComponentName = computed(() => story.data.value?.story.content.component || "")
+const storyVueComponent = computed(() => {
+  if (storyComponentName.value === "page") {
+    return PageWrapper;
+  }
+  // add more mappings if needed
+  return false
+})
 </script>
 
 <template>
-  <div class="preview-top-bar">Previewing story with slug <code>{{slug}}</code></div>
-  <div>
-    <div v-if="pending">Loading...</div>
-    <div v-else>
-      <div v-if="error">Error: {{ error }}</div>
-      <div v-else>
-        <Blocks :blocks="blocks"/>
-      </div>
-    </div>
+  <div class="preview-top-bar">Previewing story with slug <code>{{ slug }}</code></div>
+  <component :is="storyVueComponent" v-if="storyVueComponent" :story="story"/>
+  <div v-else>
+    I cannot preview content of type <code>{{ storyComponentName }}</code> since it is not mapped to any Vue component.
   </div>
 </template>
 
