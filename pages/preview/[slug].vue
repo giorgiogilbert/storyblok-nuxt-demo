@@ -9,6 +9,7 @@ const getPageBySlug = async (slug: string) => {
       slug +
       "?token=" +
       accessToken +
+      "&version=draft" +
       "&cv=" +
       Date.now(),
       {
@@ -31,6 +32,7 @@ const blocks = computed(() => {
   }
   return [];
 });
+
 </script>
 
 <template>
